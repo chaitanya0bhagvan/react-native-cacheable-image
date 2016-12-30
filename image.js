@@ -95,17 +95,17 @@ class CacheableImage extends React.Component {
                 .downloadFile(downloadOptions)
                 .promise
                 .then(() => {
-                    this.setState({cacheable: true, cachedImagePath: filePath});
+                    this.setState({downloading: false, jobId: null, cacheable: true, cachedImagePath: filePath});
                 })
                 .catch((err) => {
                     // error occurred while downloading or download stopped.. remove file if created
                     this._deleteFilePath(filePath);
-                    this.setState({cacheable: false, cachedImagePath: null});
+                    this.setState({downloading: false, jobId: null, cacheable: false, cachedImagePath: null});
                 });
             })
             .catch((err) => {
                 this._deleteFilePath(filePath);
-                this.setState({cacheable: false, cachedImagePath: null});
+                this.setState({downloading: false, jobId: null, cacheable: false, cachedImagePath: null});
             })
         });
     }
